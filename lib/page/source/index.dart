@@ -26,9 +26,9 @@ class _SourcePageState extends State<SourcePage> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-      tabs.add(SourceModle.fromJson({'text': '蓝牙', 'icon': '', 'image': '1.png'}));
-      tabs.add(SourceModle.fromJson({'text': 'AUX接口', 'icon': '', 'image': '2.png'}));
-      tabs.add(SourceModle.fromJson({'text': 'RCA接口', 'icon': '', 'image': '3.png'}));
+      tabs.add(SourceModle.fromJson({'text': '蓝牙', 'icon': IconData(0xe5ec, fontFamily: 'MaterialIcons'), 'image': '1.png'}));
+      tabs.add(SourceModle.fromJson({'text': 'AUX接口', 'icon': IconData(0xe9ca, fontFamily: 'MaterialIcons'), 'image': '2.png'}));
+      tabs.add(SourceModle.fromJson({'text': 'RCA接口', 'icon': IconData(0xeab5, fontFamily: 'MaterialIcons'), 'image': '3.png'}));
     // 创建Controller  
     _tabController = TabController(length: tabs.length, vsync: this);
   }
@@ -42,7 +42,10 @@ class _SourcePageState extends State<SourcePage> with SingleTickerProviderStateM
         title: Text('Player Source'),
         bottom: TabBar(
           controller: _tabController,
-          tabs: tabs.map((e) => Tab(text: '${e.text}')).toList()
+          tabs: tabs.map((e) => Tab(
+            text: e.text, 
+            icon: Icon(e.icon),
+          )).toList()
         ),
       ),
       

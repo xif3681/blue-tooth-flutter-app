@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 class SourceModle {
   String text;
-  String icon;
+  IconData icon;
   String image;
   SourceModle({
     this.text,
