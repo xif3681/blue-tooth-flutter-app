@@ -65,7 +65,13 @@ class _VideoDescription extends State<VideoDescription> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _connectionStatus++;
+      // _connectionStatus++;
+
+      if(_connectionStatus < 2){
+        _connectionStatus++;
+      } else if(_connectionStatus >= 2) {
+        _connectionStatus = 0;
+      }
     });
   }
   @override
@@ -83,48 +89,55 @@ class _VideoDescription extends State<VideoDescription> {
             ),
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
-          Offstage(
-            offstage: _connectionStatus == 3,
+          Visibility(
+            visible: _connectionStatus == 2,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget> [
-                Expanded(child: Icon(Icons.done)),
-                Expanded(child: Text('已连接')),
+                Icon(Icons.done, size: 11.0,),
+                Text('已连接',style: TextStyle(fontSize: 11.0,))
               ],
             ),
           ),
-          Offstage(
-            offstage: _connectionStatus == 0,
+          Visibility(
+            visible: _connectionStatus == 0,
+            child: Container(
+              width: 55.0,
+              height: 24.0,
+              child: FlatButton(
+              onPressed: _handleStatusChange,
+              color: Colors.lightBlue,
+              height:25.0,
+              padding: EdgeInsets.only(top: 2.0,bottom: 4.0),
+              child: Text('点击连接',style: TextStyle(fontSize: 11.0,color:Colors.white )
+              ),
+            ),
+            )
+          ),
+          Visibility(
+            visible: _connectionStatus == 1,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget> [
-                Expanded(child: Icon(Icons.done)),
-                Expanded(
-                  child: FlatButton(
-                    onPressed: _handleStatusChange,
-                    child: Text(
-                      '点击连接',
-                      
-                    ),
-                  )
-                ),
+                Text('正在连接...', style: TextStyle(fontSize: 11.0,)),
+                Icon(Icons.cached,size: 12.0),
               ],
             ),
           ),
-          Offstage(
-            offstage: _connectionStatus == 2,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget> [
-                Expanded(child: Text('正在连接...')),
-                Expanded(child: Icon(Icons.cached)),
-              ],
+          // Text(
+          //   '$_connectionStatus',
+          //   style: const TextStyle(fontSize: 10.0),
+          // ),
+          FlatButton(
+            onPressed: _handleStatusChange,
+            color: Colors.yellow,
+            height:25.0,
+            padding:EdgeInsets.all( 0.0) ,
+            child: Text(
+              '点击',
+              style: TextStyle(fontSize: 11.0,)
             ),
-          ),
-          Text(
-            '$_connectionStatus',
-            style: const TextStyle(fontSize: 10.0),
-          ),
+          )
           // Text(
           //   widget.user,
           //   style: const TextStyle(fontSize: 10.0),
@@ -153,16 +166,37 @@ class SpeakerListView extends StatelessWidget {
         CustomListItem(
           user: 'Flutter',
           viewCount: 999000,
-          thumbnail: Container(
-            decoration: const BoxDecoration(color: Colors.blue),
+          thumbnail: GestureDetector(
+            onTap: () { 
+              Navigator.of(context).pushNamed('source', arguments: 'hi source');
+            },
+            child: Container(
+              child: Image(
+                image: AssetImage('assets/images/1.png'),
+                width: 100.0,
+                fit: BoxFit.fill
+              ),
+              decoration: const BoxDecoration(color: Colors.blue,),
+            ), 
           ),
+
           title: 'The Flutter YouTube Channel',
         ),
         CustomListItem(
           user: 'Dash',
           viewCount: 884000,
-          thumbnail: Container(
-            decoration: const BoxDecoration(color: Colors.yellow),
+          thumbnail: GestureDetector(
+            onTap: () { 
+              Navigator.of(context).pushNamed('source', arguments: 'hi source');
+            },
+            child: Container(
+              child: Image(
+                image: AssetImage('assets/images/2.png'),
+                width: 100.0,
+                fit: BoxFit.fill
+              ),
+              decoration: const BoxDecoration(color: Colors.blue,),
+            ), 
           ),
           title: 'Announcing Flutter 1.0',
         ),

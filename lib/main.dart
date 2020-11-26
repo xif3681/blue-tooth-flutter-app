@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bluetooth_speaker/page/setting/index.dart';
 import 'package:bluetooth_speaker/page/home/index.dart';
+import 'package:bluetooth_speaker/page/setting/index.dart';
+import 'package:bluetooth_speaker/page/source/index.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -31,8 +33,10 @@ class MyApp extends StatelessWidget {
       initialRoute:"/", //名为"/"的路由作为应用的home(首页)
         //注册路由表
       routes:{
-      "setting":(context) => SettingPage(text: '设置',),
       "/":(context) => HomePage(title: '蓝牙音箱'), //注册首页路由
+      "setting":(context) => SettingPage(text: '设置',),
+      "source":(context) => SourcePage(text: '激活',),
+
       },
       // home: HomePage(title: '蓝牙音箱'),
     );
