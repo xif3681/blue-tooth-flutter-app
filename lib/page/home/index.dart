@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bluetooth_speaker/page/home.dart';
-class AppPage extends StatefulWidget {
-  AppPage({Key key, this.title}) : super(key: key);
+import 'package:bluetooth_speaker/page/home/speaker_list.dart';
+import 'package:bluetooth_speaker/page/home/drawer_list.dart';
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -15,10 +16,10 @@ class AppPage extends StatefulWidget {
   final String title;
 
   @override
-  _AppPageState createState() => _AppPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _AppPageState extends State<AppPage> {
+class _HomePageState extends State<HomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -42,50 +43,19 @@ class _AppPageState extends State<AppPage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the AppPage object that was created by
+        // Here we take the value from the HomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
       drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('设置'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-              // Then close the drawer.
-              Navigator.pop(context);
-              Navigator.of(context).pushNamed("setting", arguments: "hi setting");
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.help_outline),
-            title: Text('帮助'),
-            onTap: () {
-            // Update the state of the app.
-            // ...
-            // Then close the drawer.
-            Navigator.pop(context);
-          },
-          ),
-          ListTile(
-            leading: Icon(Icons.shopping_cart),
-            title: Text('商店'),
-          ),
-          ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text('关于音箱'),
-          ),
-        ])
+        child: DrawerListView(),
       ),
-      body: HomePage(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: SpeakerListView(),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: _incrementCounter,
+      //   tooltip: 'Increment',
+      //   child: Icon(Icons.add),
+      // ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }

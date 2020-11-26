@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:bluetooth_speaker/page/setting/index.dart';
-import 'package:bluetooth_speaker/page/index.dart';
+import 'package:bluetooth_speaker/page/home/index.dart';
 
 void main() {
   runApp(MyApp());
@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
         //注册路由表
       routes:{
       "setting":(context) => SettingPage(text: '设置',),
-      "/":(context) => MyHomePage(title: '蓝牙音箱'), //注册首页路由
+      "/":(context) => HomePage(title: '蓝牙音箱'), //注册首页路由
       },
-      // home: MyHomePage(title: '蓝牙音箱'),
+      // home: HomePage(title: '蓝牙音箱'),
     );
   }
 }

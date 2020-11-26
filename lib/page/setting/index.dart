@@ -13,6 +13,14 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
         //获取路由参数  
     var args=ModalRoute.of(context).settings.arguments;
+    List<Widget> list = <Widget> [
+      ListTile(
+        title: Text('电子邮件订阅')
+      ),
+      ListTile(
+        title: Text('改进计划')
+      ),
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text("设置"),
@@ -20,14 +28,8 @@ class SettingPage extends StatelessWidget {
        body: Padding(
         padding: EdgeInsets.all(18),
         child: Center(
-          child: Column(
-            children: <Widget>[
-              Text(text),
-              RaisedButton(
-                onPressed: () => Navigator.pop(context, "我是返回值"),
-                child: Text("$args返回"),
-              )
-            ],
+          child: ListView(
+            children: list
           ),
         ),
        )
