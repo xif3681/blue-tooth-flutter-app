@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:bluetooth_speaker/page/splash_screen.dart';
 import 'package:bluetooth_speaker/page/home/index.dart';
 import 'package:bluetooth_speaker/page/setting/index.dart';
 import 'package:bluetooth_speaker/page/source/index.dart';
 
-
+var routes = <String, WidgetBuilder>{
+  "/home": (BuildContext context) => HomePage(title: '蓝牙音箱'),
+  "/setting": (BuildContext context) => SettingPage(text: '设置',),
+  "/source": (BuildContext context) => SourcePage(text: '激活',),
+};
 void main() {
   runApp(MyApp());
 }
@@ -24,20 +29,19 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blue, 
+        accentColor: Colors.lightBlue,
+
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute:"/", //名为"/"的路由作为应用的home(首页)
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
+      // initialRoute:"/", //名为"/"的路由作为应用的home(首页)
         //注册路由表
-      routes:{
-      "/":(context) => HomePage(title: '蓝牙音箱'), //注册首页路由
-      "setting":(context) => SettingPage(text: '设置',),
-      "source":(context) => SourcePage(text: '激活',),
-
-      },
+      routes:routes,
       // home: HomePage(title: '蓝牙音箱'),
     );
   }

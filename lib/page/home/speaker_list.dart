@@ -120,7 +120,12 @@ class _VideoDescription extends State<VideoDescription> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget> [
                 Text('正在连接...', style: TextStyle(fontSize: 11.0,)),
-                Icon(Icons.cached,size: 12.0),
+                Padding(
+                  padding: EdgeInsets.only(left: 20.0),
+                ),
+                Container(child: CircularProgressIndicator(strokeWidth: 2.0,),height: 11.0,width: 11.0,)
+                
+                // Icon(Icons.cached,size: 12.0),
               ],
             ),
           ),
@@ -168,7 +173,7 @@ class SpeakerListView extends StatelessWidget {
           viewCount: 999000,
           thumbnail: GestureDetector(
             onTap: () { 
-              Navigator.of(context).pushNamed('source', arguments: 'hi source');
+              Navigator.of(context).pushNamed('/source', arguments: 'hi source');
             },
             child: Container(
               child: Image(
@@ -187,7 +192,7 @@ class SpeakerListView extends StatelessWidget {
           viewCount: 884000,
           thumbnail: GestureDetector(
             onTap: () { 
-              Navigator.of(context).pushNamed('source', arguments: 'hi source');
+              Navigator.of(context).pushNamed('/source', arguments: 'hi source');
             },
             child: Container(
               child: Image(

@@ -14,7 +14,7 @@ class DrawerListView extends StatelessWidget {
               // ...
               // Then close the drawer.
               Navigator.pop(context);
-              Navigator.of(context).pushNamed("setting", arguments: "hi setting");
+              Navigator.of(context).pushNamed("/setting", arguments: "hi setting");
             },
           ),
           ListTile(
