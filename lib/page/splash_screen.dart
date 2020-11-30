@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:bluetooth_speaker/utils/my_colors.dart';
 import 'package:bluetooth_speaker/utils/flutkart.dart';
 import 'package:bluetooth_speaker/utils/my_navigator.dart';
 
@@ -24,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(color: Colors.blueAccent),
+            decoration: BoxDecoration(color: MyColors.buttonColor),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         radius: 50.0,
                         child: Icon(
                           Icons.bluetooth_audio_outlined,
-                          color: Colors.greenAccent,
+                          color: Color(0xFF2D5873),
                           size: 50.0,
                         ),
                       ),

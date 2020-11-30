@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:bluetooth_speaker/utils/my_colors.dart';
 import 'package:bluetooth_speaker/page/splash_screen.dart';
 import 'package:bluetooth_speaker/page/home/index.dart';
 import 'package:bluetooth_speaker/page/setting/index.dart';
 import 'package:bluetooth_speaker/page/source/index.dart';
 
 var routes = <String, WidgetBuilder>{
-  "/home": (BuildContext context) => HomePage(title: '蓝牙音箱'),
+  "/home": (BuildContext context) => HomePage(title: 'BluetoothSpeaker',),
   "/setting": (BuildContext context) => SettingPage(text: '设置',),
   "/source": (BuildContext context) => SourcePage(text: '激活',),
 };
@@ -29,8 +30,10 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primaryColor: Colors.blue, 
-        accentColor: Colors.lightBlue,
+        primaryColor: MyColors.primaryColor, 
+        // scaffoldBackgroundColor: Color(0xFF7BA696),
+        buttonColor: MyColors.buttonColor,
+        accentColor: MyColors.accentColor,
 
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and

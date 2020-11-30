@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:bluetooth_speaker/utils/my_colors.dart';
 class CustomListItem extends StatelessWidget {
   const CustomListItem({
     this.thumbnail,
@@ -43,7 +44,7 @@ class CustomListItem extends StatelessWidget {
                 const Icon(
                   Icons.volume_up,
                   size: 20.0,
-                  color: Colors.lightBlue,
+                  color: MyColors.buttonColor,
                 ),
                 Expanded(child: VilumeSlide(),)
                 
@@ -89,7 +90,8 @@ class _VilumeSlide extends State<VilumeSlide> {
       divisions: 10,
       label: _currentSliderValue.round().toString(),
       onChanged: _handleValueChange,
-      activeColor: Colors.lightBlue,
+      activeColor: MyColors.accentColor,
+      inactiveColor: MyColors.buttonColor,
     );
   }
 }
@@ -156,7 +158,7 @@ class _StatusDescription extends State<StatusDescription> {
               height: 24.0,
               child: FlatButton(
               onPressed: _handleStatusChange,
-              color: Colors.lightBlue,
+              color: MyColors.buttonColor,
               height:25.0,
               padding: EdgeInsets.only(top: 2.0,bottom: 4.0),
               child: Text('点击连接',style: TextStyle(fontSize: 11.0,color:Colors.white )
@@ -246,7 +248,7 @@ class SpeakerListView extends StatelessWidget {
                 width: 100.0,
                 fit: BoxFit.fill
               ),
-              decoration: const BoxDecoration(color: Colors.blue,),
+              decoration: const BoxDecoration(color: MyColors.buttonColor,),
             ), 
           ),
           title: 'Announcing Flutter 1.0',
