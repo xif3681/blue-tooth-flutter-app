@@ -3,59 +3,109 @@ class CustomListItem extends StatelessWidget {
   const CustomListItem({
     this.thumbnail,
     this.title,
-    this.user,
-    this.viewCount,
   });
 
   final Widget thumbnail;
   final String title;
-  final String user;
-  final int viewCount;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 2,
-            child: thumbnail,
-          ),
-          Expanded(
-            flex: 3,
-            child: VideoDescription(
-              title: title,
-              user: user,
-              viewCount: viewCount,
+      child: Column(
+        children: [
+          Container(
+            height:90.0,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: thumbnail,
+                ),
+                Expanded(
+                  flex: 3,
+                  child: StatusDescription(
+                    title: title,
+      
+                  ),
+                ),
+                const Icon(
+                  Icons.more_horiz,
+                  size: 20.0,
+                ),
+              ],
             ),
           ),
-          const Icon(
-            Icons.more_horiz,
-            size: 16.0,
-          ),
+          Container(
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.volume_up,
+                  size: 20.0,
+                  color: Colors.lightBlue,
+                ),
+                Expanded(child: VilumeSlide(),)
+                
+              ],
+            )
+          )
+
+          
         ],
-      ),
+      )
+
+
     );
   }
 }
 
-class VideoDescription extends StatefulWidget { 
-  const VideoDescription({
+class VilumeSlide extends StatefulWidget { 
+  const VilumeSlide({
     Key key,
     this.title,
-    this.user,
-    this.viewCount,
+
   }) : super(key: key);
 
   final String title;
-  final String user;
-  final int viewCount;
+
     @override
-   _VideoDescription createState() => _VideoDescription();
+   _VilumeSlide createState() => _VilumeSlide();
 }
-class _VideoDescription extends State<VideoDescription> {
+class _VilumeSlide extends State<VilumeSlide> {
+  double _currentSliderValue = 20;
+
+  void _handleValueChange(double value) {
+    setState(() {
+      _currentSliderValue = value;
+    });
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Slider(
+      value: _currentSliderValue,
+      min: 0,
+      max: 100,
+      divisions: 10,
+      label: _currentSliderValue.round().toString(),
+      onChanged: _handleValueChange,
+      activeColor: Colors.lightBlue,
+    );
+  }
+}
+class StatusDescription extends StatefulWidget { 
+  const StatusDescription({
+    Key key,
+    this.title,
+
+  }) : super(key: key);
+
+  final String title;
+
+    @override
+   _StatusDescription createState() => _StatusDescription();
+}
+class _StatusDescription extends State<StatusDescription> {
   int _connectionStatus = 0;
 
   void _handleStatusChange() {
@@ -133,16 +183,16 @@ class _VideoDescription extends State<VideoDescription> {
           //   '$_connectionStatus',
           //   style: const TextStyle(fontSize: 10.0),
           // ),
-          FlatButton(
-            onPressed: _handleStatusChange,
-            color: Colors.yellow,
-            height:25.0,
-            padding:EdgeInsets.all( 0.0) ,
-            child: Text(
-              '点击',
-              style: TextStyle(fontSize: 11.0,)
-            ),
-          )
+          // FlatButton(
+          //   onPressed: _handleStatusChange,
+          //   color: Colors.yellow,
+          //   height:25.0,
+          //   padding:EdgeInsets.all( 0.0) ,
+          //   child: Text(
+          //     '点击',
+          //     style: TextStyle(fontSize: 11.0,)
+          //   ),
+          // )
           // Text(
           //   widget.user,
           //   style: const TextStyle(fontSize: 10.0),
@@ -166,11 +216,9 @@ class SpeakerListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(8.0),
-      itemExtent: 106.0,
+      itemExtent: 150.0,
       children: <CustomListItem>[
         CustomListItem(
-          user: 'Flutter',
-          viewCount: 999000,
           thumbnail: GestureDetector(
             onTap: () { 
               Navigator.of(context).pushNamed('/source', arguments: 'hi source');
@@ -188,8 +236,6 @@ class SpeakerListView extends StatelessWidget {
           title: 'The Flutter YouTube Channel',
         ),
         CustomListItem(
-          user: 'Dash',
-          viewCount: 884000,
           thumbnail: GestureDetector(
             onTap: () { 
               Navigator.of(context).pushNamed('/source', arguments: 'hi source');
