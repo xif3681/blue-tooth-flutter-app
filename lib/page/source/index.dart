@@ -14,24 +14,19 @@ class SourcePage extends StatefulWidget {
   _SourcePageState createState() => _SourcePageState();
 }
 class _SourcePageState extends State<SourcePage> with SingleTickerProviderStateMixin {
-  // const tabs =  [
-  //     {'text': '蓝牙', 'icon': '', 'image': '1.png'}, 
-  //     {'text': 'AUX接口', 'icon': '', 'image': '2.png'}, 
-  //     {'text': 'RCA接口', 'icon': '', 'image': '3.png'}, 
-  // ];
 
-  // var tabs = new List<SourceModle>(10);
-  List<SourceModle> tabs = [];
+  List<SourceModle> tabs = [
+    SourceModle.fromJson({'text': '蓝牙', 'icon': Icon(Icons.bluetooth), 'image': '1.png'}),
+    SourceModle.fromJson({'text': 'AUX接口', 'icon': Icon(Icons.settings_brightness), 'image': '2.png'}),
+    SourceModle.fromJson({'text': 'AUX接口', 'icon': Icon(Icons.settings_brightness), 'image': '2.png'})
+  ];
   int _currIndex = 0;
   // TabController _tabController; //需要定义一个Controller
-  
 
   @override
   void initState() {
     super.initState();
-      tabs.add(SourceModle.fromJson({'text': '蓝牙', 'icon': IconData(0xe5ec, fontFamily: 'MaterialIcons'), 'image': '1.png'}));
-      tabs.add(SourceModle.fromJson({'text': 'AUX接口', 'icon': IconData(0xe9ca, fontFamily: 'MaterialIcons'), 'image': '2.png'}));
-      tabs.add(SourceModle.fromJson({'text': 'RCA接口', 'icon': IconData(0xeab5, fontFamily: 'MaterialIcons'), 'image': '3.png'}));
+
     // 创建Controller  
     // _tabController = TabController(length: tabs.length, vsync: this);
   }
@@ -46,14 +41,10 @@ class _SourcePageState extends State<SourcePage> with SingleTickerProviderStateM
 
     return DefaultTabController(
       length: tabs.length,
-      // The Builder widget is used to have a different BuildContext to access
-      // closest DefaultTabController.
       child: Builder(builder: (BuildContext context) {
         final TabController tabController = DefaultTabController.of(context);
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
-            // Your code goes here.
-            // To get index of current tab use tabController.index
             _setCurrIndex(tabController.index);
           }
         });
@@ -62,11 +53,9 @@ class _SourcePageState extends State<SourcePage> with SingleTickerProviderStateM
           appBar: AppBar(
             title: Text('Player Source'),
             bottom: TabBar(
-              // controller: _tabController,
-              // indicatorColor: MyColors.accentColor,
               tabs: tabs.map((e) => Tab(
                 text: e.text, 
-                icon: Icon(e.icon),
+                icon: e.icon,
               )).toList()
             ),
           ),
@@ -81,17 +70,7 @@ class _SourcePageState extends State<SourcePage> with SingleTickerProviderStateM
                   width: 100.0,
                   fit: BoxFit.fill
                 ),
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: <Widget>[
-                //     Image(
-                //       image: AssetImage('assets/images/1.png'),
-                //       width: 100.0,
-                //       fit: BoxFit.fill
-                //     ),
-                //     // Text('${e.text}')
-                //   ]
-                // )
+
               );
             }).toList(),
           ),

@@ -14,7 +14,7 @@ class SpeakerListView extends StatefulWidget {
 class _SpeakerListViewState extends State<SpeakerListView> {
 
   List<SpeakerModle> speakers = [];
-  List<CustomListItem> customListItem = [];
+  // List<CustomListItem> customListItem = [];
   @override
   void initState() {
     super.initState();
@@ -91,7 +91,7 @@ class CustomListItem extends StatelessWidget {
                     Icons.more_horiz,
                     size: 20.0,
                   ),
-                  tooltip: 'Increase volume by 10',
+                  tooltip: '点击查看详情',
                   onPressed: () {
                     Navigator.of(context).pushNamed("/speaker_detail", arguments: id);
                   },

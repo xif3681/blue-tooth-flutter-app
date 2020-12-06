@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-class SpeakerDetailPage extends StatefulWidget {
 
-  const SpeakerDetailPage({
+import 'package:flutter/material.dart';
+class SettingPage extends StatefulWidget {
+
+  const SettingPage({
     Key key,
     this.id,
 
@@ -10,25 +11,20 @@ class SpeakerDetailPage extends StatefulWidget {
   final String id;
 
     @override
-   _SpeakerDetailPage createState() => _SpeakerDetailPage();
+   _SettingPage createState() => _SettingPage();
 }
-class _SpeakerDetailPage extends State<SpeakerDetailPage> {
+class _SettingPage extends State<SettingPage> {
     @override
   Widget build(BuildContext context) {
         //获取路由参数  
-    var speakerId=ModalRoute.of(context).settings.arguments;
+    // var speakerId=ModalRoute.of(context).settings.arguments;
     List<Widget> list = <Widget> [
-      CustomListItem(title: '关于音箱', urlName:'/', id: speakerId),
-      CustomListItem(title: '音箱重命名', urlName:'/', id: speakerId),
-      CustomListItem(title: '音箱组合配对', urlName:'/', id: speakerId),
-      CustomListItem(title: '忽略音箱', urlName:'/', id: speakerId),
-      CustomListItem(title: '均衡器', urlName:'/', id: speakerId),
-      CustomListItem(title: '指示灯亮度调节', urlName:'/', id: speakerId),
-      CustomListItem(title: '提示音', urlName:'/', id: speakerId),
+      CustomListItem(title: '电子邮件订阅', urlName:'/',),
+      CustomListItem(title: '改进计划', urlName:'/',),
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text('设置$speakerId'),
+        title: Text('应用设置'),
       ),
        body: Padding(
         padding: EdgeInsets.all(18),

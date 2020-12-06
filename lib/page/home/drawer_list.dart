@@ -1,41 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:bluetooth_speaker/models/source.dart';
 class DrawerListView extends StatelessWidget {
   DrawerListView({Key key}) : super(key: key);
+  List<DrawerModle> list = [
+    DrawerModle.fromJson({'title': '设置', 'urlName': '/setting', 'keyName': 'setting', 'icon': Icon(Icons.settings)}),
+    DrawerModle.fromJson({'title': '帮助', 'urlName': '/setting', 'keyName': 'setting_help', 'icon': Icon(Icons.help_outline)}),
+    DrawerModle.fromJson({'title': '商店', 'urlName': '/setting', 'keyName': 'setting_store', 'icon': Icon(Icons.shopping_cart)}),
+    DrawerModle.fromJson({'title': '关于音箱', 'urlName': '/setting', 'keyName': 'setting_about', 'icon': Icon(Icons.info_outline)})
+    
+  ];
 
   @override
   Widget build(BuildContext context) {
     return ListView(
-          children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('设置'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-              // Then close the drawer.
-              Navigator.pop(context);
-              Navigator.of(context).pushNamed("/setting", arguments: "hi setting");
-            },
-          ),
-          ListTile(
-            leading: Icon(Icons.help_outline),
-            title: Text('帮助'),
-            onTap: () {
-            // Update the state of the app.
-            // ...
-            // Then close the drawer.
-            Navigator.pop(context);
-          },
-          ),
-          ListTile(
-            leading: Icon(Icons.shopping_cart),
-            title: Text('商店'),
-          ),
-          ListTile(
-            leading: Icon(Icons.info_outline),
-            title: Text('关于音箱'),
-          ),
-        ]);
+      children:list.map((e) {
+        return ListTile(
+        leading: e.icon,
+        title: Text(e.title),
+        onTap: () {
+          // Update the state of the app.
+          // ...
+          // Then close the drawer.
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed(e.urlName, arguments: e.title);
+        },
+      );
+      }).toList()
+    );
+          
 
   }
 }
