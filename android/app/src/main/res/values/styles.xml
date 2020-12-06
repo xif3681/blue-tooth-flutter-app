@@ -15,4 +15,6 @@
     <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
         <item name="android:windowBackground">@android:color/white</item>
     </style>
+    <color name="red">#FF0000</color>
+    <color name="buttonColor">#BFBA9F</color>
 </resources>

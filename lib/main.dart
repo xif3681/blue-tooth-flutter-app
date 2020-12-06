@@ -4,11 +4,13 @@ import 'package:bluetooth_speaker/page/splash_screen.dart';
 import 'package:bluetooth_speaker/page/home/index.dart';
 import 'package:bluetooth_speaker/page/setting/index.dart';
 import 'package:bluetooth_speaker/page/source/index.dart';
+import 'package:bluetooth_speaker/page/speaker_detail/index.dart';
 
 var routes = <String, WidgetBuilder>{
   "/home": (BuildContext context) => HomePage(title: 'BluetoothSpeaker',),
   "/setting": (BuildContext context) => SettingPage(text: '设置',),
   "/source": (BuildContext context) => SourcePage(text: '激活',),
+  "/speaker_detail": (BuildContext context) => SpeakerDetailPage(),
 };
 void main() {
   runApp(MyApp());

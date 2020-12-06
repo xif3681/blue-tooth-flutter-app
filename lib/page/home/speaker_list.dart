@@ -1,13 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:bluetooth_speaker/utils/my_colors.dart';
+import 'package:bluetooth_speaker/models/speaker.dart';
+
+class SpeakerListView extends StatefulWidget {
+
+  const SpeakerListView({
+    Key key,
+  }) : super(key: key);
+
+    @override
+   _SpeakerListViewState createState() => _SpeakerListViewState();
+}
+class _SpeakerListViewState extends State<SpeakerListView> {
+
+  List<SpeakerModle> speakers = [];
+  List<CustomListItem> customListItem = [];
+  @override
+  void initState() {
+    super.initState();
+      speakers.add(SpeakerModle.fromJson({'name': 'speak one','title': 'title1', 'id': 'xxx1'}));
+      speakers.add(SpeakerModle.fromJson({'name': 'speak tow','title': 'title2', 'id': 'xxx2'}));
+  }
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      padding: const EdgeInsets.all(8.0),
+      itemExtent: 150.0,
+      children: speakers.map((e) {
+        return CustomListItem(
+          thumbnail: GestureDetector(
+            onTap: () { 
+              Navigator.of(context).pushNamed('/source', arguments: e.id);
+            },
+            child: Container(
+              child: Image(
+                image: AssetImage('assets/images/1.png'),
+                width: 100.0,
+                fit: BoxFit.fill
+              ),
+              decoration: const BoxDecoration(color: Colors.blue,),
+            ), 
+          ),
+
+          title: '${e.id}${e.name}',
+          id: '${e.id}',
+          speakersItem: e,
+          );
+      }).toList()
+
+    );
+  }
+}
 class CustomListItem extends StatelessWidget {
   const CustomListItem({
     this.thumbnail,
     this.title,
+    this.id,
+    this.speakersItem,
   });
 
   final Widget thumbnail;
   final String title;
+  final String id;
+  final SpeakerModle speakersItem;
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +86,17 @@ class CustomListItem extends StatelessWidget {
       
                   ),
                 ),
-                const Icon(
-                  Icons.more_horiz,
-                  size: 20.0,
+                IconButton(
+                  icon: Icon(
+                    Icons.more_horiz,
+                    size: 20.0,
+                  ),
+                  tooltip: 'Increase volume by 10',
+                  onPressed: () {
+                    Navigator.of(context).pushNamed("/speaker_detail", arguments: id);
+                  },
                 ),
+
               ],
             ),
           ),
@@ -71,9 +133,9 @@ class VilumeSlide extends StatefulWidget {
   final String title;
 
     @override
-   _VilumeSlide createState() => _VilumeSlide();
+   _VilumeSlideState createState() => _VilumeSlideState();
 }
-class _VilumeSlide extends State<VilumeSlide> {
+class _VilumeSlideState extends State<VilumeSlide> {
   double _currentSliderValue = 20;
 
   void _handleValueChange(double value) {
@@ -87,7 +149,7 @@ class _VilumeSlide extends State<VilumeSlide> {
       value: _currentSliderValue,
       min: 0,
       max: 100,
-      divisions: 10,
+      // divisions: 10,
       label: _currentSliderValue.round().toString(),
       onChanged: _handleValueChange,
       activeColor: MyColors.accentColor,
@@ -105,9 +167,9 @@ class StatusDescription extends StatefulWidget {
   final String title;
 
     @override
-   _StatusDescription createState() => _StatusDescription();
+   _StatusDescriptionState createState() => _StatusDescriptionState();
 }
-class _StatusDescription extends State<StatusDescription> {
+class _StatusDescriptionState extends State<StatusDescription> {
   int _connectionStatus = 0;
 
   void _handleStatusChange() {
@@ -181,29 +243,7 @@ class _StatusDescription extends State<StatusDescription> {
               ],
             ),
           ),
-          // Text(
-          //   '$_connectionStatus',
-          //   style: const TextStyle(fontSize: 10.0),
-          // ),
-          // FlatButton(
-          //   onPressed: _handleStatusChange,
-          //   color: Colors.yellow,
-          //   height:25.0,
-          //   padding:EdgeInsets.all( 0.0) ,
-          //   child: Text(
-          //     '点击',
-          //     style: TextStyle(fontSize: 11.0,)
-          //   ),
-          // )
-          // Text(
-          //   widget.user,
-          //   style: const TextStyle(fontSize: 10.0),
-          // ),
-          // const Padding(padding: EdgeInsets.symmetric(vertical: 1.0)),
-          // Text(
-          //   '$widget.viewCount views',
-          //   style: const TextStyle(fontSize: 10.0),
-          // ),
+
         ],
       ),
     );
@@ -211,49 +251,3 @@ class _StatusDescription extends State<StatusDescription> {
 }
 
 /// This is the stateless widget that the main application instantiates.
-class SpeakerListView extends StatelessWidget {
-  SpeakerListView({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(8.0),
-      itemExtent: 150.0,
-      children: <CustomListItem>[
-        CustomListItem(
-          thumbnail: GestureDetector(
-            onTap: () { 
-              Navigator.of(context).pushNamed('/source', arguments: 'hi source');
-            },
-            child: Container(
-              child: Image(
-                image: AssetImage('assets/images/1.png'),
-                width: 100.0,
-                fit: BoxFit.fill
-              ),
-              decoration: const BoxDecoration(color: Colors.blue,),
-            ), 
-          ),
-
-          title: 'The Flutter YouTube Channel',
-        ),
-        CustomListItem(
-          thumbnail: GestureDetector(
-            onTap: () { 
-              Navigator.of(context).pushNamed('/source', arguments: 'hi source');
-            },
-            child: Container(
-              child: Image(
-                image: AssetImage('assets/images/2.png'),
-                width: 100.0,
-                fit: BoxFit.fill
-              ),
-              decoration: const BoxDecoration(color: MyColors.buttonColor,),
-            ), 
-          ),
-          title: 'Announcing Flutter 1.0',
-        ),
-      ],
-    );
-  }
-}

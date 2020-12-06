@@ -25,6 +25,7 @@ class WalkthroughState extends State<Walkthrough>
 
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     animationController =
@@ -39,6 +40,7 @@ class WalkthroughState extends State<Walkthrough>
 
   @override
   void dispose() {
+    // ignore: todo
     // TODO: implement dispose
     super.dispose();
     animationController.dispose();

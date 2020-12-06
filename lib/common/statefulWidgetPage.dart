@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-class genBill extends StatefulWidget {
+class GenBill extends StatefulWidget {
   @override
-  _genBillState createState() => _genBillState();
+  _GenBillState createState() => _GenBillState();
 }
 
-class _genBillState extends State<genBill> {
+class _GenBillState extends State<GenBill> {
 @override
   Widget build(BuildContext context) {
      return  new Scaffold(

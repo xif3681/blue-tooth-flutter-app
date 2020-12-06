@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
+class SpeakerDetailPage extends StatefulWidget {
 
-class SettingPage extends StatelessWidget {
-  
-  SettingPage({
-    Key key, 
-    @required this.text,  // 接收一个text参数
+  const SpeakerDetailPage({
+    Key key,
+    this.id,
+
   }) : super(key: key);
 
-   final String text;
+  final String id;
 
-  @override
+    @override
+   _SpeakerDetailPage createState() => _SpeakerDetailPage();
+}
+class _SpeakerDetailPage extends State<SpeakerDetailPage> {
+    @override
   Widget build(BuildContext context) {
         //获取路由参数  
-    // var args=ModalRoute.of(context).settings.arguments;
+    var speakerId=ModalRoute.of(context).settings.arguments;
     List<Widget> list = <Widget> [
       ListTile(
         title: Text('电子邮件订阅')
@@ -23,7 +27,7 @@ class SettingPage extends StatelessWidget {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: Text("设置"),
+        title: Text('设置$speakerId'),
       ),
        body: Padding(
         padding: EdgeInsets.all(18),
@@ -35,5 +39,6 @@ class SettingPage extends StatelessWidget {
        )
     );
   }
+ }
 
-}
+ 
