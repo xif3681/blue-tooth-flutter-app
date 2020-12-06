@@ -25,7 +25,7 @@ class _SpeakerListViewState extends State<SpeakerListView> {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(8.0),
-      itemExtent: 150.0,
+      itemExtent: 180.0,
       children: speakers.map((e) {
         return CustomListItem(
           thumbnail: GestureDetector(
@@ -112,7 +112,8 @@ class CustomListItem extends StatelessWidget {
                 
               ],
             )
-          )
+          ),
+          Divider()
 
           
         ],
