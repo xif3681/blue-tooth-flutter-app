@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: MyColors.scaffoldBackgroundColor,
         buttonColor: MyColors.buttonColor,
         accentColor: MyColors.accentColor,
+        canvasColor: MyColors.scaffoldBackgroundColor,
 
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
