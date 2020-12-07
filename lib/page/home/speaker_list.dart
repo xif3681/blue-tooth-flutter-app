@@ -146,22 +146,33 @@ class _VilumeSlideState extends State<VilumeSlide> {
   @override
   Widget build(BuildContext context) {
     return Container(child: new Transform(
-      child: Slider(
-        value: _currentSliderValue,
-        min: 0,
-        max: 100,
-        // divisions: 10,
-        label: _currentSliderValue.round().toString(),
-        onChanged: _handleValueChange,
-        activeColor: MyColors.buttonColor,
-        // activeColor: MyColors.accentColor,
-        inactiveColor: Color(0xFFB3B6B4),
-        // inactiveColor: MyColors.buttonColor,
-      ),
       alignment: Alignment.topLeft,
-      transform: new Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1)
-        // ..scale(0.5)
-    ),);
+      transform: new Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+      child: new SliderTheme(
+         data: SliderThemeData(
+            trackHeight: 1.5,
+            trackShape: RectangularSliderTrackShape() ,
+            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6,),
+            // thumbShape: RoundSliderThumbShape(enabledThumbRadius: 6,),
+            // overlayShape: RoundSliderOverlayShape(overlayRadius: 18.0)
+          ),
+          child: Slider(
+            value: _currentSliderValue,
+            min: 0,
+            max: 100,
+            // divisions: 10,
+            label: _currentSliderValue.round().toString(),
+            onChanged: _handleValueChange,
+            activeColor: MyColors.buttonColor,
+            // activeColor: MyColors.accentColor,
+            inactiveColor: Color(0xFFB3B6B4),
+            
+          // inactiveColor: MyColors.buttonColor,
+          ), 
+        )
+    )
+    
+   );
 
   }
 }
