@@ -79,7 +79,7 @@ class _SourcePageState extends State<SourcePage> with SingleTickerProviderStateM
               // Add your onPressed code here!
             },
             label: Text('点击激活$_currIndex',style: TextStyle(color:Colors.white )),
-            icon: Icon(Icons.thumb_up),
+            icon: Icon(Icons.thumb_up, color:Colors.white,),
             backgroundColor: MyColors.buttonColor,
           ),
         );

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primaryColor: MyColors.primaryColor, 
-        // scaffoldBackgroundColor: Color(0xFF7BA696),
+        scaffoldBackgroundColor: MyColors.scaffoldBackgroundColor,
         buttonColor: MyColors.buttonColor,
         accentColor: MyColors.accentColor,
 

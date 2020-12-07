@@ -25,7 +25,7 @@ class _SpeakerListViewState extends State<SpeakerListView> {
   Widget build(BuildContext context) {
     return ListView(
       padding: const EdgeInsets.all(8.0),
-      itemExtent: 180.0,
+      itemExtent: 140.0,
       children: speakers.map((e) {
         return CustomListItem(
           thumbnail: GestureDetector(
@@ -101,6 +101,7 @@ class CustomListItem extends StatelessWidget {
             ),
           ),
           Container(
+            height: 24.0,
             child: Row(
               children: [
                 const Icon(
@@ -114,8 +115,6 @@ class CustomListItem extends StatelessWidget {
             )
           ),
           Divider()
-
-          
         ],
       )
 
@@ -146,16 +145,24 @@ class _VilumeSlideState extends State<VilumeSlide> {
   }
   @override
   Widget build(BuildContext context) {
-    return Slider(
-      value: _currentSliderValue,
-      min: 0,
-      max: 100,
-      // divisions: 10,
-      label: _currentSliderValue.round().toString(),
-      onChanged: _handleValueChange,
-      activeColor: MyColors.accentColor,
-      inactiveColor: MyColors.buttonColor,
-    );
+    return Container(child: new Transform(
+      child: Slider(
+        value: _currentSliderValue,
+        min: 0,
+        max: 100,
+        // divisions: 10,
+        label: _currentSliderValue.round().toString(),
+        onChanged: _handleValueChange,
+        activeColor: MyColors.buttonColor,
+        // activeColor: MyColors.accentColor,
+        inactiveColor: Color(0xFFB3B6B4),
+        // inactiveColor: MyColors.buttonColor,
+      ),
+      alignment: Alignment.topLeft,
+      transform: new Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1)
+        // ..scale(0.5)
+    ),);
+
   }
 }
 class StatusDescription extends StatefulWidget { 

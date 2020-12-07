@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:bluetooth_speaker/models/source.dart';
-class DrawerListView extends StatelessWidget {
-  DrawerListView({Key key}) : super(key: key);
+class DrawerListView extends StatefulWidget {
+    @override
+  _DrawerListViewState createState() => _DrawerListViewState();
+}
+
+class _DrawerListViewState extends State<DrawerListView> {
+
   List<DrawerModle> list = [
     DrawerModle.fromJson({'title': '应用设置', 'urlName': '/setting', 'keyName': 'setting', 'icon': Icon(Icons.settings)}),
     DrawerModle.fromJson({'title': '帮助', 'urlName': '/setting', 'keyName': 'setting_help', 'icon': Icon(Icons.help_outline)}),
