@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(color: MyColors.scaffoldBackgroundColor),
+            decoration: BoxDecoration(color: MyColors.primaryColor),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -38,11 +38,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       CircleAvatar(
-                        backgroundColor: MyColors.primaryColor,
+                        backgroundColor: MyColors.scaffoldBackgroundColor,
                         radius: 50.0,
                         child: Icon(
                           Icons.bluetooth_audio_outlined,
-                          color:MyColors.scaffoldBackgroundColor,
+                          color:MyColors.primaryColor,
                           size: 50.0,
                         ),
                       ),

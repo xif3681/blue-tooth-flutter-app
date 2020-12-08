@@ -16,6 +16,6 @@
         <item name="android:windowBackground">@android:color/white</item>
     </style>
     <color name="red">#FF0000</color>
-    <color name="buttonColor">#d3d4cf</color>
+    <color name="buttonColor">#8b8273</color>
     <!-- <color name="buttonColor">#BFBA9F</color> -->
 </resources>

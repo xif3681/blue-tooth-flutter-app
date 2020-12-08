@@ -13,13 +13,22 @@ class SpeakerListView extends StatefulWidget {
 }
 class _SpeakerListViewState extends State<SpeakerListView> {
 
-  List<SpeakerModle> speakers = [];
-  // List<CustomListItem> customListItem = [];
+  List<SpeakerModle> speakers;
   @override
   void initState() {
     super.initState();
-      speakers.add(SpeakerModle.fromJson({'name': 'speak one','title': 'title1', 'id': 'xxx1'}));
-      speakers.add(SpeakerModle.fromJson({'name': 'speak tow','title': 'title2', 'id': 'xxx2'}));
+    speakers = getSpeakers();
+  }
+  List<SpeakerModle> getSpeakers() {
+    List data = [ //  Speakers List service
+      {'name': 'speak one', 'id': 'xxx1', 'volumeValue': 10.0, 'connectStatus' : 0},
+      {'name': 'speak tow', 'id': 'xxx2','volumeValue': 20.0,'connectStatus' : 1},
+      {'name': 'speak three', 'id': 'xxx3','volumeValue': 30.0,'connectStatus' : 2},
+    ];
+    return data.map((item) {
+      return SpeakerModle.fromJson(item);
+    }).toList();
+
   }
   @override
   Widget build(BuildContext context) {
@@ -27,80 +36,62 @@ class _SpeakerListViewState extends State<SpeakerListView> {
       padding: const EdgeInsets.all(8.0),
       itemExtent: 140.0,
       children: speakers.map((e) {
-        return CustomListItem(
-          thumbnail: GestureDetector(
-            onTap: () { 
-              Navigator.of(context).pushNamed('/source', arguments: e.id);
-            },
-            child: Container(
-              child: Image(
-                image: AssetImage('assets/images/1.png'),
-                width: 100.0,
-                fit: BoxFit.fill
-              ),
-              decoration: const BoxDecoration(color: Colors.blue,),
-            ), 
-          ),
-
-          title: '${e.id}${e.name}',
-          id: '${e.id}',
-          speakersItem: e,
-          );
+        return CustomListItem(speakersItem: e);
       }).toList()
-
     );
   }
 }
 class CustomListItem extends StatelessWidget {
   const CustomListItem({
-    this.thumbnail,
-    this.title,
-    this.id,
     this.speakersItem,
   });
-
-  final Widget thumbnail;
-  final String title;
-  final String id;
   final SpeakerModle speakersItem;
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Column(
         children: [
-          Container(
+          Container( // 列表item
             height:90.0,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Expanded(
+                Expanded( // 左边图片
                   flex: 2,
-                  child: thumbnail,
-                ),
-                Expanded(
-                  flex: 3,
-                  child: StatusDescription(
-                    title: title,
-      
+                  child: GestureDetector(
+                    onTap: () { 
+                      Navigator.of(context).pushNamed('/source', arguments: speakersItem.id);
+                    },
+                    child: Container(
+                      child: Image(
+                        image: AssetImage('assets/images/1.png'),
+                        width: 100.0,
+                        fit: BoxFit.fill
+                      ),
+                      decoration: const BoxDecoration(color: Colors.blue,),
+                    ), 
                   ),
                 ),
-                IconButton(
+                Expanded( // 中介状态
+                  flex: 3,
+                  child: StatusChangeView( speakersItem: speakersItem,),
+                ),
+                IconButton( // 右侧图标
                   icon: Icon(
                     Icons.more_horiz,
                     size: 20.0,
                   ),
                   tooltip: '点击查看详情',
                   onPressed: () {
-                    Navigator.of(context).pushNamed("/speaker_detail", arguments: id);
+                    Navigator.of(context).pushNamed('/speaker_detail', arguments: speakersItem.id);
                   },
                 ),
 
               ],
             ),
           ),
-          Container(
+          Container( // 底下音量调节滑块
             height: 24.0,
             child: Row(
               children: [
@@ -109,45 +100,54 @@ class CustomListItem extends StatelessWidget {
                   size: 20.0,
                   color: MyColors.buttonColor,
                 ),
-                Expanded(child: VilumeSlide(),)
-                
+                Expanded(child: VolumeAdjustView(speakersItem: speakersItem),)
               ],
             )
           ),
           Divider()
         ],
       )
-
-
     );
   }
 }
 
-class VilumeSlide extends StatefulWidget { 
-  const VilumeSlide({
+class VolumeAdjustView extends StatefulWidget { 
+  const VolumeAdjustView({
     Key key,
-    this.title,
-
+    this.speakersItem,
   }) : super(key: key);
 
-  final String title;
+  final SpeakerModle speakersItem;
 
     @override
-   _VilumeSlideState createState() => _VilumeSlideState();
+   _VolumeAdjustViewState createState() => _VolumeAdjustViewState();
 }
-class _VilumeSlideState extends State<VilumeSlide> {
-  double _currentSliderValue = 20;
+class _VolumeAdjustViewState extends State<VolumeAdjustView> {
+  double _volumeValue = 0;
+  @override
+  void initState() {
+    super.initState();
+    _volumeValue = getVolume();
+  }
 
-  void _handleValueChange(double value) {
+  void _valueChangeHandle(double value) {
     setState(() {
-      _currentSliderValue = value;
+      _volumeValue = value;
+      setVolume(widget.speakersItem.id, value);
     });
+  }
+  void setVolume(String id, double value) {
+     // 调节本地手机音量
+     print(value);
+  }
+  double getVolume() { 
+    // 获取本地手机音量
+    double _volumeValue = widget.speakersItem.volumeValue;
+    return _volumeValue;
   }
   @override
   Widget build(BuildContext context) {
-    return Container(child: new Transform(
-      alignment: Alignment.topLeft,
-      transform: new Matrix4(1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1),
+    return Container(
       child: new SliderTheme(
          data: SliderThemeData(
             trackHeight: 1.5,
@@ -157,55 +157,57 @@ class _VilumeSlideState extends State<VilumeSlide> {
             // overlayShape: RoundSliderOverlayShape(overlayRadius: 18.0)
           ),
           child: Slider(
-            value: _currentSliderValue,
+            value: _volumeValue,
             min: 0,
             max: 100,
             // divisions: 10,
-            label: _currentSliderValue.round().toString(),
-            onChanged: _handleValueChange,
+            label: _volumeValue.round().toString(),
+            onChanged: _valueChangeHandle,
             activeColor: MyColors.buttonColor,
-            // activeColor: MyColors.accentColor,
             inactiveColor: Color(0xFFB3B6B4),
-            
-          // inactiveColor: MyColors.buttonColor,
           ), 
-        )
-    )
-    
+      )
    );
-
   }
 }
-class StatusDescription extends StatefulWidget { 
-  const StatusDescription({
+class StatusChangeView extends StatefulWidget { 
+  const StatusChangeView({
     Key key,
-    this.title,
+    this.speakersItem,
 
   }) : super(key: key);
 
-  final String title;
+
+  final SpeakerModle speakersItem;
 
     @override
-   _StatusDescriptionState createState() => _StatusDescriptionState();
+   _StatusChangeViewState createState() => _StatusChangeViewState();
 }
-class _StatusDescriptionState extends State<StatusDescription> {
-  int _connectionStatus = 0;
+class _StatusChangeViewState extends State<StatusChangeView> {
+  int _connectStatus;
+  @override
+  void initState() {
+    super.initState();
+    _connectStatus = getConnectStatus();
+  }
 
-  void _handleStatusChange() {
+  void _statusChangeHandle() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      // _connectionStatus++;
-
-      if(_connectionStatus < 2){
-        _connectionStatus++;
-      } else if(_connectionStatus >= 2) {
-        _connectionStatus = 0;
+      if(_connectStatus < 2){
+        _connectStatus++;
+      } else if(_connectStatus >= 2) {
+        _connectStatus = 0;
       }
     });
+  }
+  void setConnectStatus(int value) {
+     // 设置本地手机蓝牙连接状态
+     print(value);
+  }
+  int getConnectStatus() { 
+    // 获取本地手机蓝牙连接状态
+    int _connectStatus = widget.speakersItem.connectStatus;
+    return _connectStatus;
   }
   @override
   Widget build(BuildContext context) {
@@ -215,7 +217,7 @@ class _StatusDescriptionState extends State<StatusDescription> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            widget.title,
+            widget.speakersItem.name,
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14.0,
@@ -223,7 +225,7 @@ class _StatusDescriptionState extends State<StatusDescription> {
           ),
           const Padding(padding: EdgeInsets.symmetric(vertical: 2.0)),
           Visibility(
-            visible: _connectionStatus == 2,
+            visible: _connectStatus == 2,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget> [
@@ -233,12 +235,12 @@ class _StatusDescriptionState extends State<StatusDescription> {
             ),
           ),
           Visibility(
-            visible: _connectionStatus == 0,
+            visible: _connectStatus == 0,
             child: Container(
               width: 55.0,
               height: 24.0,
               child: FlatButton(
-              onPressed: _handleStatusChange,
+              onPressed: _statusChangeHandle,
               color: MyColors.buttonColor,
               height:25.0,
               padding: EdgeInsets.only(top: 2.0,bottom: 4.0),
@@ -248,7 +250,7 @@ class _StatusDescriptionState extends State<StatusDescription> {
             )
           ),
           Visibility(
-            visible: _connectionStatus == 1,
+            visible: _connectStatus == 1,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget> [
@@ -257,8 +259,7 @@ class _StatusDescriptionState extends State<StatusDescription> {
                   padding: EdgeInsets.only(left: 20.0),
                 ),
                 Container(child: CircularProgressIndicator(strokeWidth: 2.0,),height: 11.0,width: 11.0,)
-                
-                // Icon(Icons.cached,size: 12.0),
+
               ],
             ),
           ),
@@ -269,4 +270,4 @@ class _StatusDescriptionState extends State<StatusDescription> {
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
+

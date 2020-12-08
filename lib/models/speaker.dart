@@ -1,15 +1,17 @@
 
 class SpeakerModle {
   String id;
-  String name;
-  String title;
-  // String image;
+  String name; // 名称
+  double volumeValue; // 音量
+  int connectStatus; // 连接状态
+
 
   SpeakerModle({
     this.id,
     this.name,
-    this.title,
-    // this.image,
+    this.volumeValue,
+    this.connectStatus,
+
 
   });
 
@@ -17,8 +19,9 @@ class SpeakerModle {
     return SpeakerModle(
         id: json['id'],
         name: json['name'],
-        title: json['title'],
-        // image: json['image'],
+        volumeValue: json['volumeValue'],
+        connectStatus: json['connectStatus'],
+
  
     );
   }
